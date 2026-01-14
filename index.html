@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘의 웃픈 명언 | 웃기지만 와닿는 인생 조언</title>
-    <meta name="description" content="매일 새로운 재미있는 명언으로 하루를 시작하세요. 웃음과 지혜가 함께하는 명언 모음집.">
+    <title>우리동네 나이팅게일 | 파주 주간보호센터 - 대형병원 출신 간호사가 직접 케어합니다</title>
+    <meta name="description" content="아주대병원, 삼성병원 출신 간호사들이 운영하는 파주 주간보호센터. 주간보호, 방문간호, 방문요양, 복지용구까지 한 번에.">
+    <meta name="keywords" content="파주 주간보호, 파주 방문간호, 파주 방문요양, 파주 복지용구, 노인돌봄, 재활운동">
+    <meta property="og:title" content="우리동네 나이팅게일 | 파주 주간보호센터">
+    <meta property="og:description" content="대형병원 출신 간호사가 직접 케어하는 프리미엄 돌봄 서비스">
+    <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,31 +20,41 @@
                     fontFamily: {
                         'korean': ['Noto Sans KR', 'sans-serif'],
                     },
+                    colors: {
+                        'primary': '#2D8C7F',
+                        'primary-dark': '#1F6B61',
+                        'accent': '#E8B86D',
+                        'warm': '#FDF8F3',
+                        'warm-dark': '#F5EDE3',
+                    },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 3s ease-in-out infinite',
-                        'bounce-slow': 'bounce 2s ease-in-out infinite',
-                        'fade-in': 'fadeIn 0.5s ease-out forwards',
-                        'slide-up': 'slideUp 0.5s ease-out forwards',
-                        'pop': 'pop 0.3s ease-out forwards',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'slide-left': 'slideLeft 0.8s ease-out forwards',
+                        'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'count': 'count 2s ease-out forwards',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
                         fadeIn: {
                             '0%': { opacity: '0' },
                             '100%': { opacity: '1' },
                         },
                         slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
                         },
-                        pop: {
-                            '0%': { transform: 'scale(0.8)', opacity: '0' },
-                            '50%': { transform: 'scale(1.1)' },
-                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        slideLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(40px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        pulseSoft: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         },
                     },
                 },
@@ -48,589 +62,625 @@
         }
     </script>
     <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
+        body { font-family: 'Noto Sans KR', sans-serif; }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #2D8C7F 0%, #3DA094 50%, #4DB8A9 100%);
         }
-        .gradient-bg {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+
+        .text-gradient {
+            background: linear-gradient(135deg, #2D8C7F, #E8B86D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-        .dark .glass-card {
-            background: rgba(30, 30, 40, 0.95);
-        }
-        .quote-text {
+
+        .card-hover {
             transition: all 0.3s ease;
         }
-        .emoji-float {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.1;
-            pointer-events: none;
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(45, 140, 127, 0.15);
         }
-        .category-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+
+        .blob {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: blobMove 8s ease-in-out infinite;
+        }
+        @keyframes blobMove {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #E8B86D 0%, #D4A55A 100%);
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
             transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(232, 184, 109, 0.4);
         }
-        .heart-animation {
-            animation: heartBeat 0.3s ease-in-out;
+
+        .phone-ring {
+            animation: ring 1.5s ease-in-out infinite;
         }
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
+        @keyframes ring {
+            0%, 100% { transform: rotate(0deg); }
+            10%, 30% { transform: rotate(-10deg); }
+            20%, 40% { transform: rotate(10deg); }
+            50% { transform: rotate(0deg); }
         }
-        .copy-tooltip {
-            opacity: 0;
-            transition: opacity 0.3s ease;
+
+        .trust-badge {
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.9);
         }
-        .copy-tooltip.show {
-            opacity: 1;
+
+        .service-icon {
+            transition: all 0.3s ease;
         }
-        .share-menu {
-            transform: scale(0.8);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
+        .card-hover:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
         }
-        .share-menu.show {
-            transform: scale(1);
-            opacity: 1;
-            pointer-events: auto;
-        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #2D8C7F; border-radius: 4px; }
     </style>
 </head>
-<body class="gradient-bg min-h-screen font-korean transition-colors duration-300">
-    <!-- Floating Emojis Background -->
-    <div id="emoji-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
-
-    <!-- Dark Mode Toggle -->
-    <button id="darkModeToggle" class="fixed top-4 right-4 z-50 p-3 rounded-full glass-card shadow-lg hover:scale-110 transition-transform duration-300">
-        <span id="darkIcon" class="text-2xl">🌙</span>
-    </button>
-
-    <!-- Main Container -->
-    <div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-8">
-        <!-- Header -->
-        <header class="text-center mb-8 animate-slide-up">
-            <h1 class="text-4xl md:text-5xl font-black text-white drop-shadow-lg mb-2">
-                오늘의 웃픈 명언
-            </h1>
-            <p class="text-white/80 text-lg">웃기지만 은근 와닿는 인생 조언 모음</p>
-        </header>
-
-        <!-- Category Filter -->
-        <div class="flex flex-wrap justify-center gap-2 mb-6 animate-slide-up" style="animation-delay: 0.1s;">
-            <button class="category-btn active px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="all">
-                🎲 전체
-            </button>
-            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="life">
-                🌟 인생
-            </button>
-            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="work">
-                💼 직장
-            </button>
-            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="love">
-                💕 연애
-            </button>
-            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="money">
-                💰 돈
-            </button>
-            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="food">
-                🍕 음식
-            </button>
-        </div>
-
-        <!-- Quote Card -->
-        <main class="w-full max-w-2xl animate-slide-up" style="animation-delay: 0.2s;">
-            <div id="quoteCard" class="glass-card rounded-3xl shadow-2xl p-8 md:p-12 relative overflow-hidden">
-                <!-- Decorative Elements -->
-                <div class="absolute top-4 left-4 text-6xl opacity-10">"</div>
-                <div class="absolute bottom-4 right-4 text-6xl opacity-10 rotate-180">"</div>
-
-                <!-- Quote Content -->
-                <div id="quoteContent" class="relative z-10">
-                    <p id="quoteText" class="text-xl md:text-2xl lg:text-3xl font-medium text-gray-800 dark:text-gray-100 leading-relaxed text-center mb-6 quote-text">
-                        나는 오늘도 성공적으로 알람을 끄고 다시 잠들었다.
-                    </p>
-                    <p id="quoteAuthor" class="text-right text-gray-500 dark:text-gray-400 font-light">
-                        — <span id="authorName">현대인의 아침</span>
-                    </p>
-                </div>
-
-                <!-- Category Badge -->
-                <div class="absolute top-4 right-4">
-                    <span id="categoryBadge" class="px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-                        🌟 인생
-                    </span>
-                </div>
-
-                <!-- Likes Counter -->
-                <div class="absolute bottom-4 left-4 flex items-center gap-2">
-                    <button id="likeBtn" class="flex items-center gap-1 px-3 py-1 rounded-full bg-red-50 dark:bg-red-900/30 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors">
-                        <span id="heartIcon">🤍</span>
-                        <span id="likeCount" class="text-sm font-medium">0</span>
-                    </button>
-                </div>
-            </div>
-        </main>
-
-        <!-- Action Buttons -->
-        <div class="flex flex-wrap justify-center gap-4 mt-8 animate-slide-up" style="animation-delay: 0.3s;">
-            <!-- New Quote Button -->
-            <button id="newQuoteBtn" class="group relative px-8 py-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-bold text-gray-800 dark:text-white">
-                <span class="flex items-center gap-2">
-                    <span class="text-xl group-hover:animate-bounce-slow">🎲</span>
-                    새로운 명언
-                </span>
-            </button>
-
-            <!-- Copy Button -->
-            <button id="copyBtn" class="relative px-6 py-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-bold text-gray-800 dark:text-white">
-                <span class="flex items-center gap-2">
-                    <span class="text-xl">📋</span>
-                    복사
-                </span>
-                <span id="copyTooltip" class="copy-tooltip absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap">
-                    복사됨! ✓
-                </span>
-            </button>
-
-            <!-- Share Button -->
-            <div class="relative">
-                <button id="shareBtn" class="px-6 py-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-bold text-gray-800 dark:text-white">
-                    <span class="flex items-center gap-2">
-                        <span class="text-xl">📤</span>
-                        공유
-                    </span>
-                </button>
-                <!-- Share Menu -->
-                <div id="shareMenu" class="share-menu absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl flex gap-2">
-                    <button class="share-option p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors" data-platform="twitter">
-                        <span class="text-2xl">𝕏</span>
-                    </button>
-                    <button class="share-option p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors" data-platform="facebook">
-                        <span class="text-2xl">📘</span>
-                    </button>
-                    <button class="share-option p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors" data-platform="kakao">
-                        <span class="text-2xl">💬</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Save Button -->
-            <button id="saveBtn" class="px-6 py-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-bold text-gray-800 dark:text-white">
-                <span class="flex items-center gap-2">
-                    <span id="saveIcon" class="text-xl">📌</span>
-                    저장
-                </span>
-            </button>
-        </div>
-
-        <!-- Saved Quotes Section -->
-        <div id="savedSection" class="w-full max-w-2xl mt-12 hidden animate-fade-in">
-            <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                📌 저장한 명언
-                <span id="savedCount" class="text-sm font-normal bg-white/20 px-2 py-1 rounded-full">0개</span>
-            </h2>
-            <div id="savedQuotes" class="space-y-4"></div>
-        </div>
-
-        <!-- Stats -->
-        <div class="mt-12 flex gap-8 text-white/80 text-center animate-slide-up" style="animation-delay: 0.4s;">
-            <div>
-                <div class="text-3xl font-bold" id="totalQuotes">50</div>
-                <div class="text-sm">명언 수</div>
-            </div>
-            <div>
-                <div class="text-3xl font-bold" id="viewCount">0</div>
-                <div class="text-sm">오늘 조회</div>
-            </div>
-            <div>
-                <div class="text-3xl font-bold" id="savedTotal">0</div>
-                <div class="text-sm">저장됨</div>
-            </div>
-        </div>
+<body class="bg-warm font-korean">
+    <!-- 플로팅 상담 버튼 -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <a href="tel:010-7683-6599" class="group flex items-center gap-3 bg-primary text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105">
+            <span class="text-2xl phone-ring">📞</span>
+            <span class="font-bold hidden md:block">지금 상담하기</span>
+        </a>
+        <a href="https://open.kakao.com/o/sbDMLkle" target="_blank" class="flex items-center gap-3 bg-yellow-400 text-yellow-900 px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105">
+            <span class="text-2xl">💬</span>
+            <span class="font-bold hidden md:block">카카오톡 상담</span>
+        </a>
     </div>
 
-    <!-- Footer -->
-    <footer class="relative z-10 text-center py-6 text-white/60 text-sm">
-        <p>매일 새로운 웃음과 지혜를 전해드립니다 ✨</p>
-        <p class="mt-1">© 2024 오늘의 웃픈 명언. Made with 💜</p>
+    <!-- 네비게이션 -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2">
+                <span class="text-3xl">🏥</span>
+                <div>
+                    <div class="font-bold text-primary text-lg leading-tight">우리동네 나이팅게일</div>
+                    <div class="text-xs text-gray-500">파주 주간보호센터</div>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+                <a href="#services" class="hover:text-primary transition-colors">서비스</a>
+                <a href="#difference" class="hover:text-primary transition-colors">차별점</a>
+                <a href="#contact" class="hover:text-primary transition-colors">연락처</a>
+            </div>
+            <a href="tel:010-7683-6599" class="md:hidden text-primary font-bold">
+                📞 상담
+            </a>
+        </div>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero-gradient min-h-screen flex items-center relative overflow-hidden pt-16">
+        <!-- 배경 장식 -->
+        <div class="absolute top-20 right-10 w-64 h-64 bg-white/10 blob"></div>
+        <div class="absolute bottom-20 left-10 w-48 h-48 bg-white/5 blob" style="animation-delay: -4s;"></div>
+
+        <div class="max-w-6xl mx-auto px-4 py-20 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-white animate-slide-up">
+                    <!-- 신뢰 배지 -->
+                    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-4 py-2 rounded-full text-sm mb-6">
+                        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                        대형병원 출신 간호사 직접 운영
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
+                        부모님 돌봄,<br>
+                        <span class="text-accent">전문가</span>에게<br>
+                        맡기세요
+                    </h1>
+
+                    <p class="text-xl text-white/90 mb-8 leading-relaxed">
+                        아주대병원, 삼성병원 출신 간호사들이<br>
+                        <strong class="text-accent">병원급 케어</strong>를 가정에서 제공합니다.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="tel:010-7683-6599" class="cta-button px-8 py-4 rounded-xl text-white font-bold text-lg text-center shadow-lg">
+                            📞 무료 상담 신청
+                        </a>
+                        <a href="#services" class="px-8 py-4 rounded-xl bg-white/20 backdrop-blur text-white font-bold text-lg text-center hover:bg-white/30 transition-all">
+                            서비스 알아보기 →
+                        </a>
+                    </div>
+
+                    <!-- 신뢰 지표 -->
+                    <div class="grid grid-cols-3 gap-4 mt-12 pt-8 border-t border-white/20">
+                        <div class="text-center">
+                            <div class="text-3xl font-black text-accent" id="counter1">10+</div>
+                            <div class="text-sm text-white/70">년 경력 간호사</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-black text-accent">687</div>
+                            <div class="text-sm text-white/70">종 복지용구</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-black text-accent">4in1</div>
+                            <div class="text-sm text-white/70">통합 돌봄</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 우측 이미지/카드 영역 -->
+                <div class="relative animate-slide-left hidden md:block">
+                    <div class="bg-white rounded-3xl p-8 shadow-2xl relative z-10">
+                        <div class="text-6xl mb-4 text-center">👩‍⚕️</div>
+                        <blockquote class="text-gray-700 text-lg leading-relaxed text-center mb-4">
+                            "고객만족을 넘어<br>
+                            <span class="text-primary font-bold text-xl">고객감동</span>을 추구합니다"
+                        </blockquote>
+                        <div class="text-center text-gray-500">
+                            <div class="font-bold text-gray-700">구본형 대표</div>
+                            <div class="text-sm">BLS/ACLS/KALS 강사</div>
+                        </div>
+                    </div>
+
+                    <!-- 플로팅 배지들 -->
+                    <div class="absolute -top-4 -right-4 bg-accent text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-float">
+                        🏆 전문 인증
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 bg-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-float" style="animation-delay: -1.5s;">
+                        ✅ 장기요양 등급 무료상담
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 스크롤 유도 -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 text-center animate-bounce">
+            <div class="text-sm mb-2">더 알아보기</div>
+            <div class="text-2xl">↓</div>
+        </div>
+    </section>
+
+    <!-- 문제 제기 섹션 -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 text-center scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
+                혹시 이런 고민 있으신가요?
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6 text-left">
+                <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-400">
+                    <div class="text-2xl mb-2">😰</div>
+                    <p class="text-gray-700">"부모님 혼자 두고 출근하기 <strong>너무 불안해요</strong>"</p>
+                </div>
+                <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-400">
+                    <div class="text-2xl mb-2">😔</div>
+                    <p class="text-gray-700">"요양보호사가 <strong>의료 지식이 없어서</strong> 걱정돼요"</p>
+                </div>
+                <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-400">
+                    <div class="text-2xl mb-2">😩</div>
+                    <p class="text-gray-700">"주간보호, 방문간호, 복지용구... <strong>따로따로 알아봐야 하나요?</strong>"</p>
+                </div>
+                <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-400">
+                    <div class="text-2xl mb-2">😢</div>
+                    <p class="text-gray-700">"부모님이 <strong>재활운동을 제대로</strong> 받고 계신 건지..."</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-2xl font-bold text-primary">
+                👇 저희가 해결해 드립니다
+            </div>
+        </div>
+    </section>
+
+    <!-- 서비스 섹션 -->
+    <section id="services" class="py-20 bg-warm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-bold mb-4">
+                    ONE-STOP 통합 돌봄
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    한 번의 상담으로<br><span class="text-gradient">맞춤형 돌봄</span>을 설계합니다
+                </h2>
+                <p class="text-gray-600 text-lg">4가지 서비스를 한 곳에서 편리하게</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 주간보호 -->
+                <div class="bg-white rounded-3xl p-8 card-hover scroll-reveal">
+                    <div class="service-icon w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-3xl mb-6">
+                        🏠
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">주간보호</h3>
+                    <p class="text-gray-600 mb-4">"진짜" 재활운동과 인지활동</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2">
+                            <span class="text-primary">✓</span> 전문 재활운동
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-primary">✓</span> 간호사 상주 케어
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-primary">✓</span> 인지능력 향상 프로그램
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 방문간호 -->
+                <div class="bg-white rounded-3xl p-8 card-hover scroll-reveal" style="animation-delay: 0.1s;">
+                    <div class="service-icon w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl mb-6">
+                        💉
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">방문간호</h3>
+                    <p class="text-gray-600 mb-4">집에서도 병원처럼</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2">
+                            <span class="text-blue-500">✓</span> 수액 치료
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-blue-500">✓</span> 카테터/욕창 관리
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-blue-500">✓</span> 만성질환 관리
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 방문요양 -->
+                <div class="bg-white rounded-3xl p-8 card-hover scroll-reveal" style="animation-delay: 0.2s;">
+                    <div class="service-icon w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center text-3xl mb-6">
+                        🤝
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">방문요양</h3>
+                    <p class="text-gray-600 mb-4">일상생활 전반 케어</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2">
+                            <span class="text-pink-500">✓</span> 식사 준비/보조
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-pink-500">✓</span> 외출 동행
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-pink-500">✓</span> 개인위생 관리
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 복지용구 -->
+                <div class="bg-white rounded-3xl p-8 card-hover scroll-reveal" style="animation-delay: 0.3s;">
+                    <div class="service-icon w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-3xl mb-6">
+                        🛏️
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">복지용구</h3>
+                    <p class="text-gray-600 mb-4">67개 품목 687종 구비</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2">
+                            <span class="text-amber-500">✓</span> 전동침대
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-amber-500">✓</span> 휠체어
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-amber-500">✓</span> 욕창예방 매트
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 차별점 섹션 -->
+    <section id="difference" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-block bg-accent/20 text-amber-700 px-4 py-2 rounded-full text-sm font-bold mb-4">
+                    WHY US?
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    우리동네 나이팅게일이<br><span class="text-gradient">특별한 이유</span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 차별점 1 -->
+                <div class="text-center scroll-reveal">
+                    <div class="w-24 h-24 bg-gradient-to-br from-primary to-teal-400 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
+                        👩‍⚕️
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">대형병원 출신 간호사</h3>
+                    <p class="text-gray-600">
+                        아주대병원, 강북삼성병원, 서울삼성병원 출신<br>
+                        <strong class="text-primary">10년 이상 경력</strong>의 전문 간호사가<br>
+                        직접 케어합니다
+                    </p>
+                </div>
+
+                <!-- 차별점 2 -->
+                <div class="text-center scroll-reveal" style="animation-delay: 0.1s;">
+                    <div class="w-24 h-24 bg-gradient-to-br from-accent to-amber-400 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
+                        🎓
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">공인 전문 자격</h3>
+                    <p class="text-gray-600">
+                        BLS/ACLS/KALS 강사 자격<br>
+                        <strong class="text-primary">방문간호 전문가 인증</strong><br>
+                        응급상황에도 전문적 대응
+                    </p>
+                </div>
+
+                <!-- 차별점 3 -->
+                <div class="text-center scroll-reveal" style="animation-delay: 0.2s;">
+                    <div class="w-24 h-24 bg-gradient-to-br from-pink-400 to-rose-400 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
+                        💝
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">고객감동 서비스</h3>
+                    <p class="text-gray-600">
+                        "고객만족"을 넘어<br>
+                        <strong class="text-primary">"고객감동"</strong>을 목표로<br>
+                        가족처럼 정성껏 모십니다
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 후기/신뢰 섹션 -->
+    <section class="py-20 bg-warm-dark">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12 scroll-reveal">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                    보호자분들의 한마디
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-8 rounded-2xl shadow-lg scroll-reveal">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-4">★★★★★</div>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        "간호사 선생님이 직접 케어해주시니까 <strong>의료적인 부분도 안심</strong>이 됩니다.
+                        어머니가 재활운동 하신 후로 걸음걸이가 많이 좋아지셨어요."
+                    </p>
+                    <div class="text-sm text-gray-500">- 파주시 금촌동 보호자님</div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-lg scroll-reveal" style="animation-delay: 0.1s;">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-4">★★★★★</div>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        "주간보호도 받고, 복지용구도 여기서 한 번에 해결했어요.
+                        <strong>이곳저곳 알아보는 수고가 없어서</strong> 정말 편했습니다."
+                    </p>
+                    <div class="text-sm text-gray-500">- 파주시 운정동 보호자님</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA 섹션 -->
+    <section class="py-20 hero-gradient relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 blob"></div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                부모님 돌봄, 더 이상 혼자 고민하지 마세요
+            </h2>
+            <p class="text-xl text-white/90 mb-8">
+                장기요양등급 신청부터 맞춤 돌봄 설계까지<br>
+                <strong class="text-accent">무료로 상담</strong>해 드립니다
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="tel:010-7683-6599" class="cta-button px-10 py-5 rounded-xl text-white font-bold text-xl shadow-lg inline-flex items-center justify-center gap-3">
+                    <span class="text-2xl phone-ring">📞</span>
+                    010-7683-6599
+                </a>
+                <a href="https://open.kakao.com/o/sbDMLkle" target="_blank" class="px-10 py-5 rounded-xl bg-yellow-400 text-yellow-900 font-bold text-xl shadow-lg hover:bg-yellow-300 transition-all inline-flex items-center justify-center gap-3">
+                    <span class="text-2xl">💬</span>
+                    카카오톡 상담
+                </a>
+            </div>
+
+            <div class="text-white/70 text-sm">
+                ⏰ 상담 가능 시간: 평일 09:00 - 18:00 (주말/공휴일 카톡 상담)
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 섹션 -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="scroll-reveal">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-8">
+                        찾아오시는 길
+                    </h2>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                📍
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800 mb-1">주소</div>
+                                <div class="text-gray-600">경기도 파주시 새꽃로 124</div>
+                                <div class="text-sm text-gray-400">(우) 10927</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                📞
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800 mb-1">전화번호</div>
+                                <a href="tel:010-7683-6599" class="text-primary font-bold text-lg hover:underline">010-7683-6599</a>
+                                <div class="text-gray-500">031-522-6599</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                ✉️
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800 mb-1">이메일</div>
+                                <a href="mailto:woorinurse7683@gmail.com" class="text-gray-600 hover:text-primary transition-colors">
+                                    woorinurse7683@gmail.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                📝
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800 mb-1">블로그</div>
+                                <a href="https://blog.naver.com/woorinurse7683" target="_blank" class="text-primary hover:underline">
+                                    네이버 블로그 방문하기 →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 지도 대체 이미지 -->
+                <div class="scroll-reveal">
+                    <div class="bg-warm rounded-3xl p-8 text-center">
+                        <div class="text-6xl mb-4">🗺️</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">경기도 파주시 새꽃로 124</h3>
+                        <p class="text-gray-600 mb-6">금촌역에서 도보 10분 거리</p>
+                        <a href="https://map.naver.com/v5/search/경기도 파주시 새꽃로 124" target="_blank"
+                           class="inline-block bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-dark transition-colors">
+                            네이버 지도에서 보기 →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">🏥</span>
+                        <div>
+                            <div class="font-bold text-lg">우리동네 나이팅게일</div>
+                            <div class="text-sm text-gray-400">파주 주간보호센터</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        대형병원 출신 간호사가 직접 운영하는<br>
+                        프리미엄 돌봄 서비스
+                    </p>
+                </div>
+
+                <div>
+                    <div class="font-bold mb-4">서비스</div>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>주간보호 서비스</li>
+                        <li>방문간호 서비스</li>
+                        <li>방문요양 서비스</li>
+                        <li>복지용구 대여/판매</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="font-bold mb-4">연락처</div>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>📞 010-7683-6599</li>
+                        <li>📞 031-522-6599</li>
+                        <li>✉️ woorinurse7683@gmail.com</li>
+                        <li>📍 경기도 파주시 새꽃로 124</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-gray-500 text-sm">
+                    © 2024 우리동네 나이팅게일. All rights reserved.
+                </div>
+                <div class="text-gray-500 text-sm">
+                    대표: 구본형
+                </div>
+            </div>
+        </div>
     </footer>
 
+    <!-- 스크롤 애니메이션 스크립트 -->
     <script>
-        // Quote Data
-        const quotes = [
-            // 인생 카테고리
-            { text: "나는 오늘도 성공적으로 알람을 끄고 다시 잠들었다.", author: "현대인의 아침", category: "life", emoji: "😴" },
-            { text: "인생은 짧다. 그러니 디저트부터 먹어라.", author: "맛집 탐험가", category: "life", emoji: "🍰" },
-            { text: "노력은 배신하지 않는다. 다만, 결과가 늦게 올 뿐... 아주 많이.", author: "기다림의 달인", category: "life", emoji: "⏰" },
-            { text: "오늘 할 일을 내일로 미루면, 내일의 내가 두 배로 힘들다. 하지만 오늘의 나는 행복하다.", author: "선택적 낙관주의자", category: "life", emoji: "😌" },
-            { text: "남들이 쉴 때 나도 쉬어라. 남들이 일할 때도... 그냥 쉬어라.", author: "프로 휴식러", category: "life", emoji: "🛋️" },
-            { text: "성공의 비결은 시작하는 것이다. 근데 시작이 너무 어렵다.", author: "이론과 실천 사이", category: "life", emoji: "🚀" },
-            { text: "실패는 성공의 어머니라지만, 성공은 왜 안 오시나요?", author: "기다리는 자녀", category: "life", emoji: "👀" },
-            { text: "포기하면 편해? 맞아, 진짜 편해.", author: "솔직한 인생 선배", category: "life", emoji: "✌️" },
-            { text: "꿈은 이루어진다. 낮잠으로.", author: "수면 전문가", category: "life", emoji: "💤" },
-            { text: "내일의 나에게 미루자. 그 친구가 더 유능할 거야.", author: "시간 여행자", category: "life", emoji: "🔮" },
-
-            // 직장 카테고리
-            { text: "회사는 가족 같다고? 그래서 명절에도 출근하나요?", author: "현실주의 직장인", category: "work", emoji: "🏢" },
-            { text: "월급은 통장을 스쳐간다. 마치 바람처럼.", author: "텅장의 시인", category: "work", emoji: "💸" },
-            { text: "워라밸? 워크만 있고 라이프는 어디 갔죠?", author: "야근 전문가", category: "work", emoji: "⚖️" },
-            { text: "내일 출근이라는 사실만으로 일요일이 우울해진다.", author: "월요병 환자", category: "work", emoji: "😢" },
-            { text: "열정을 가지고 일하라! (단, 월급은 열정페이)", author: "스타트업 격언", category: "work", emoji: "🔥" },
-            { text: "칼퇴는 도시전설이 아닙니다. 저는 본 적이 없을 뿐.", author: "사무실의 전설", category: "work", emoji: "🌆" },
-            { text: "회의는 왜 항상 퇴근 직전에 잡히는가?", author: "타이밍의 희생자", category: "work", emoji: "📅" },
-            { text: "점심시간만이 유일한 인생이다.", author: "직장인의 오아시스", category: "work", emoji: "🍱" },
-            { text: "이력서 업데이트가 나의 취미입니다.", author: "이직 준비생", category: "work", emoji: "📝" },
-            { text: "금요일 6시는 일주일 중 가장 아름다운 순간.", author: "주말 대기자", category: "work", emoji: "🎉" },
-
-            // 연애 카테고리
-            { text: "솔로가 외롭다고? 커플은 두 배로 외롭다.", author: "경험자의 조언", category: "love", emoji: "💔" },
-            { text: "짝사랑은 다이어트에 좋다. 밥이 안 넘어가니까.", author: "사랑과 식욕 사이", category: "love", emoji: "🥗" },
-            { text: "그 사람이 내 타입이 아닌 게 아니라, 내가 그 사람 타입이 아닌 거였다.", author: "현실 자각", category: "love", emoji: "💭" },
-            { text: "연애는 타이밍이라더니, 내 타이밍은 항상 버스 막차.", author: "막차 러버", category: "love", emoji: "🚌" },
-            { text: "너 없인 못 살아... 라고 했던 사람 지금 잘 살고 있더라.", author: "관찰자", category: "love", emoji: "👀" },
-            { text: "설렘은 3개월, 현실은 평생.", author: "연애 리얼리스트", category: "love", emoji: "📊" },
-            { text: "이상형은 있는데, 내가 그 이상형의 이상형이 아니다.", author: "자아성찰러", category: "love", emoji: "🪞" },
-            { text: "사랑에 빠지는 건 쉽다. 빠져나오기가 어렵지.", author: "연애 수영선수", category: "love", emoji: "🏊" },
-
-            // 돈 카테고리
-            { text: "돈이 전부는 아니다. 하지만 90%쯤 된다.", author: "현실주의 경제학자", category: "money", emoji: "💵" },
-            { text: "부자 되는 법? 이미 부자인 집에 태어나면 된다.", author: "금수저 연구가", category: "money", emoji: "🥄" },
-            { text: "월급 빼고 다 오른다.", author: "인플레이션 피해자", category: "money", emoji: "📈" },
-            { text: "저축의 비결: 쓸 돈이 없으면 된다.", author: "강제 저축러", category: "money", emoji: "🐷" },
-            { text: "로또 1등에 당첨될 확률은 낮지만, 0은 아니잖아?", author: "희망 구매자", category: "money", emoji: "🎰" },
-            { text: "주식은 쌀 때 사서 비쌀 때 팔면 된다. 문제는 그걸 모른다는 거지.", author: "개미투자자", category: "money", emoji: "📉" },
-            { text: "절약하면 부자 될 줄 알았는데, 그냥 가난하게 살게 됐다.", author: "검소한 자의 고백", category: "money", emoji: "💀" },
-            { text: "카드값은 미래의 내가 내겠지.", author: "신용카드 철학자", category: "money", emoji: "💳" },
-            { text: "있을 때 잘해? 없을 때도 잘해줄 사람이 진짜다.", author: "진정한 친구 감별사", category: "money", emoji: "🤝" },
-            { text: "돈으로 행복을 살 수 없다고? 그건 돈이 없어본 적 없는 사람 말이다.", author: "경험자", category: "money", emoji: "🤑" },
-
-            // 음식 카테고리
-            { text: "다이어트는 내일부터. 오늘은 마지막 만찬.", author: "만년 다이어터", category: "food", emoji: "🍔" },
-            { text: "배부르면 후회하고, 배고프면 또 먹고.", author: "식욕의 노예", category: "food", emoji: "🍕" },
-            { text: "야식은 금지? 자정 넘으면 아침이니까 아침식사다.", author: "논리적 야식러", category: "food", emoji: "🌙" },
-            { text: "먹을 때만큼은 모든 걱정을 잊는다.", author: "먹방 철학자", category: "food", emoji: "😋" },
-            { text: "운동 1시간보다 안 먹는 게 빠르다. 근데 못 참겠다.", author: "현실 다이어터", category: "food", emoji: "🏃" },
-            { text: "치킨은 살 안 쪄요. 행복이 쪄요.", author: "치킨 마니아", category: "food", emoji: "🍗" },
-            { text: "라면 먹으면 살찐다길래 국물은 안 마셨다.", author: "나름의 노력", category: "food", emoji: "🍜" },
-            { text: "배고프면 화나고, 먹으면 졸리다. 인간의 딜레마.", author: "식후 철학자", category: "food", emoji: "😤" },
-            { text: "맛있는 건 0칼로리라고 생각하면 마음이 편하다.", author: "정신승리 달인", category: "food", emoji: "🧠" },
-            { text: "오늘 뭐 먹지?는 인류 최대의 난제.", author: "식사 고민러", category: "food", emoji: "🤔" },
-        ];
-
-        // State
-        let currentQuote = null;
-        let currentCategory = 'all';
-        let savedQuotes = JSON.parse(localStorage.getItem('savedQuotes')) || [];
-        let likedQuotes = JSON.parse(localStorage.getItem('likedQuotes')) || {};
-        let viewCount = parseInt(localStorage.getItem('viewCount')) || 0;
-        let isDarkMode = localStorage.getItem('darkMode') === 'true';
-
-        // DOM Elements
-        const quoteText = document.getElementById('quoteText');
-        const authorName = document.getElementById('authorName');
-        const categoryBadge = document.getElementById('categoryBadge');
-        const likeBtn = document.getElementById('likeBtn');
-        const heartIcon = document.getElementById('heartIcon');
-        const likeCount = document.getElementById('likeCount');
-        const newQuoteBtn = document.getElementById('newQuoteBtn');
-        const copyBtn = document.getElementById('copyBtn');
-        const copyTooltip = document.getElementById('copyTooltip');
-        const shareBtn = document.getElementById('shareBtn');
-        const shareMenu = document.getElementById('shareMenu');
-        const saveBtn = document.getElementById('saveBtn');
-        const saveIcon = document.getElementById('saveIcon');
-        const savedSection = document.getElementById('savedSection');
-        const savedQuotesContainer = document.getElementById('savedQuotes');
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const darkIcon = document.getElementById('darkIcon');
-        const categoryBtns = document.querySelectorAll('.category-btn');
-
-        // Initialize
-        function init() {
-            updateViewCount();
-            applyDarkMode();
-            createFloatingEmojis();
-            showRandomQuote();
-            renderSavedQuotes();
-            updateStats();
-            setupEventListeners();
-        }
-
-        // Event Listeners
-        function setupEventListeners() {
-            newQuoteBtn.addEventListener('click', showRandomQuote);
-            copyBtn.addEventListener('click', copyQuote);
-            shareBtn.addEventListener('click', toggleShareMenu);
-            saveBtn.addEventListener('click', toggleSaveQuote);
-            likeBtn.addEventListener('click', toggleLike);
-            darkModeToggle.addEventListener('click', toggleDarkMode);
-
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentCategory = btn.dataset.category;
-                    showRandomQuote();
-                });
-            });
-
-            document.querySelectorAll('.share-option').forEach(btn => {
-                btn.addEventListener('click', () => shareQuote(btn.dataset.platform));
-            });
-
-            // Close share menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!shareBtn.contains(e.target) && !shareMenu.contains(e.target)) {
-                    shareMenu.classList.remove('show');
-                }
-            });
-
-            // Keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
-                if (e.code === 'Space' && !e.target.matches('input, textarea')) {
-                    e.preventDefault();
-                    showRandomQuote();
+        // Scroll Reveal Animation
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.scroll-reveal');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight * 0.85) {
+                    el.classList.add('revealed');
                 }
             });
         }
 
-        // Get filtered quotes
-        function getFilteredQuotes() {
-            if (currentCategory === 'all') return quotes;
-            return quotes.filter(q => q.category === currentCategory);
-        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
 
-        // Show random quote
-        function showRandomQuote() {
-            const filteredQuotes = getFilteredQuotes();
-            const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
-            currentQuote = filteredQuotes[randomIndex];
-
-            // Animate out
-            quoteText.style.opacity = '0';
-            quoteText.style.transform = 'translateY(-20px)';
-
-            setTimeout(() => {
-                quoteText.textContent = currentQuote.text;
-                authorName.textContent = currentQuote.author;
-
-                const categoryEmoji = getCategoryEmoji(currentQuote.category);
-                const categoryName = getCategoryName(currentQuote.category);
-                categoryBadge.textContent = `${categoryEmoji} ${categoryName}`;
-
-                // Update like state
-                const quoteId = getQuoteId(currentQuote);
-                const isLiked = likedQuotes[quoteId];
-                heartIcon.textContent = isLiked ? '❤️' : '🤍';
-                likeCount.textContent = likedQuotes[quoteId] ? '1' : '0';
-
-                // Update save state
-                const isSaved = savedQuotes.some(q => getQuoteId(q) === quoteId);
-                saveIcon.textContent = isSaved ? '📍' : '📌';
-
-                // Animate in
-                quoteText.style.opacity = '1';
-                quoteText.style.transform = 'translateY(0)';
-
-                // Update view count
-                updateViewCount();
-            }, 300);
-        }
-
-        // Get quote ID
-        function getQuoteId(quote) {
-            return `${quote.text.substring(0, 20)}-${quote.author}`;
-        }
-
-        // Get category emoji
-        function getCategoryEmoji(category) {
-            const emojis = { life: '🌟', work: '💼', love: '💕', money: '💰', food: '🍕' };
-            return emojis[category] || '🎲';
-        }
-
-        // Get category name
-        function getCategoryName(category) {
-            const names = { life: '인생', work: '직장', love: '연애', money: '돈', food: '음식' };
-            return names[category] || '전체';
-        }
-
-        // Copy quote
-        function copyQuote() {
-            const text = `"${currentQuote.text}" - ${currentQuote.author}`;
-            navigator.clipboard.writeText(text).then(() => {
-                copyTooltip.classList.add('show');
-                setTimeout(() => copyTooltip.classList.remove('show'), 2000);
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             });
+        });
+
+        // Counter animation
+        function animateCounter(el, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    el.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(current) + '+';
+                }
+            }, 40);
         }
 
-        // Toggle share menu
-        function toggleShareMenu() {
-            shareMenu.classList.toggle('show');
-        }
-
-        // Share quote
-        function shareQuote(platform) {
-            const text = `"${currentQuote.text}" - ${currentQuote.author}\n\n오늘의 웃픈 명언에서 더 많은 명언을 만나보세요!`;
-            const url = window.location.href;
-
-            let shareUrl;
-            switch (platform) {
-                case 'twitter':
-                    shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-                    break;
-                case 'facebook':
-                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
-                    break;
-                case 'kakao':
-                    // For Kakao, we'll just copy to clipboard with a message
-                    navigator.clipboard.writeText(text + '\n' + url);
-                    alert('클립보드에 복사되었습니다. 카카오톡에 붙여넣기 해주세요!');
-                    return;
-            }
-
-            window.open(shareUrl, '_blank', 'width=600,height=400');
-            shareMenu.classList.remove('show');
-        }
-
-        // Toggle save quote
-        function toggleSaveQuote() {
-            const quoteId = getQuoteId(currentQuote);
-            const existingIndex = savedQuotes.findIndex(q => getQuoteId(q) === quoteId);
-
-            if (existingIndex > -1) {
-                savedQuotes.splice(existingIndex, 1);
-                saveIcon.textContent = '📌';
+        // Navbar background on scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md');
             } else {
-                savedQuotes.push({...currentQuote, savedAt: new Date().toISOString()});
-                saveIcon.textContent = '📍';
-                saveBtn.classList.add('animate-pop');
-                setTimeout(() => saveBtn.classList.remove('animate-pop'), 300);
+                nav.classList.remove('shadow-md');
             }
-
-            localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
-            renderSavedQuotes();
-            updateStats();
-        }
-
-        // Toggle like
-        function toggleLike() {
-            const quoteId = getQuoteId(currentQuote);
-
-            if (likedQuotes[quoteId]) {
-                delete likedQuotes[quoteId];
-                heartIcon.textContent = '🤍';
-                likeCount.textContent = '0';
-            } else {
-                likedQuotes[quoteId] = true;
-                heartIcon.textContent = '❤️';
-                likeCount.textContent = '1';
-                heartIcon.classList.add('heart-animation');
-                setTimeout(() => heartIcon.classList.remove('heart-animation'), 300);
-            }
-
-            localStorage.setItem('likedQuotes', JSON.stringify(likedQuotes));
-        }
-
-        // Render saved quotes
-        function renderSavedQuotes() {
-            if (savedQuotes.length === 0) {
-                savedSection.classList.add('hidden');
-                return;
-            }
-
-            savedSection.classList.remove('hidden');
-            document.getElementById('savedCount').textContent = `${savedQuotes.length}개`;
-
-            savedQuotesContainer.innerHTML = savedQuotes.map((quote, index) => `
-                <div class="glass-card rounded-xl p-4 relative animate-fade-in" style="animation-delay: ${index * 0.1}s;">
-                    <p class="text-gray-800 dark:text-gray-100 mb-2">"${quote.text}"</p>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">— ${quote.author}</p>
-                    <button class="absolute top-2 right-2 text-red-500 hover:text-red-700 transition-colors" onclick="removeSavedQuote('${getQuoteId(quote)}')">
-                        ✕
-                    </button>
-                </div>
-            `).join('');
-        }
-
-        // Remove saved quote
-        window.removeSavedQuote = function(quoteId) {
-            savedQuotes = savedQuotes.filter(q => getQuoteId(q) !== quoteId);
-            localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
-            renderSavedQuotes();
-            updateStats();
-
-            // Update save button if current quote was removed
-            if (currentQuote && getQuoteId(currentQuote) === quoteId) {
-                saveIcon.textContent = '📌';
-            }
-        };
-
-        // Update view count
-        function updateViewCount() {
-            viewCount++;
-            localStorage.setItem('viewCount', viewCount);
-            document.getElementById('viewCount').textContent = viewCount;
-        }
-
-        // Update stats
-        function updateStats() {
-            document.getElementById('totalQuotes').textContent = quotes.length;
-            document.getElementById('savedTotal').textContent = savedQuotes.length;
-        }
-
-        // Toggle dark mode
-        function toggleDarkMode() {
-            isDarkMode = !isDarkMode;
-            localStorage.setItem('darkMode', isDarkMode);
-            applyDarkMode();
-        }
-
-        // Apply dark mode
-        function applyDarkMode() {
-            if (isDarkMode) {
-                document.documentElement.classList.add('dark');
-                darkIcon.textContent = '☀️';
-            } else {
-                document.documentElement.classList.remove('dark');
-                darkIcon.textContent = '🌙';
-            }
-        }
-
-        // Create floating emojis
-        function createFloatingEmojis() {
-            const container = document.getElementById('emoji-container');
-            const emojis = ['😂', '🤣', '😎', '🙃', '😅', '🤪', '💭', '✨', '💫', '🌟'];
-
-            for (let i = 0; i < 15; i++) {
-                const emoji = document.createElement('div');
-                emoji.className = 'emoji-float';
-                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                emoji.style.left = `${Math.random() * 100}%`;
-                emoji.style.top = `${Math.random() * 100}%`;
-                emoji.style.animationDelay = `${Math.random() * 6}s`;
-                emoji.style.fontSize = `${1.5 + Math.random() * 2}rem`;
-                emoji.style.animation = `float ${5 + Math.random() * 5}s ease-in-out infinite`;
-                container.appendChild(emoji);
-            }
-        }
-
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', init);
+        });
     </script>
 </body>
 </html>
