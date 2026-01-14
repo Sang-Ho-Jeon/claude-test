@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 웃픈 명언 | 웃기지만 와닿는 인생 조언</title>
+    <meta name="description" content="매일 새로운 재미있는 명언으로 하루를 시작하세요. 웃음과 지혜가 함께하는 명언 모음집.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'korean': ['Noto Sans KR', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'slide-up': 'slideUp 0.5s ease-out forwards',
+                        'pop': 'pop 0.3s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pop: {
+                            '0%': { transform: 'scale(0.8)', opacity: '0' },
+                            '50%': { transform: 'scale(1.1)' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .dark .glass-card {
+            background: rgba(30, 30, 40, 0.95);
+        }
+        .quote-text {
+            transition: all 0.3s ease;
+        }
+        .emoji-float {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+        .heart-animation {
+            animation: heartBeat 0.3s ease-in-out;
+        }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        .copy-tooltip {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .copy-tooltip.show {
+            opacity: 1;
+        }
+        .share-menu {
+            transform: scale(0.8);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+        .share-menu.show {
+            transform: scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen font-korean transition-colors duration-300">
+    <!-- Floating Emojis Background -->
+    <div id="emoji-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="fixed top-4 right-4 z-50 p-3 rounded-full glass-card shadow-lg hover:scale-110 transition-transform duration-300">
+        <span id="darkIcon" class="text-2xl">🌙</span>
+    </button>
+
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-8 animate-slide-up">
+            <h1 class="text-4xl md:text-5xl font-black text-white drop-shadow-lg mb-2">
+                오늘의 웃픈 명언
+            </h1>
+            <p class="text-white/80 text-lg">웃기지만 은근 와닿는 인생 조언 모음</p>
+        </header>
+
+        <!-- Category Filter -->
+        <div class="flex flex-wrap justify-center gap-2 mb-6 animate-slide-up" style="animation-delay: 0.1s;">
+            <button class="category-btn active px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="all">
+                🎲 전체
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="life">
+                🌟 인생
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="work">
+                💼 직장
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="love">
+                💕 연애
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="money">
+                💰 돈
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full glass-card shadow-md text-sm font-medium transition-all duration-300 hover:scale-105" data-category="food">
+                🍕 음식
+            </button>
+        </div>
+
+        <!-- Quote Card -->
+        <main class="w-full max-w-2xl animate-slide-up" style="animation-delay: 0.2s;">
+            <div id="quoteCard" class="glass-card rounded-3xl shadow-2xl p-8 md:p-12 relative overflow-hidden">
+                <!-- Decorative Elements -->
+                <div class="absolute top-4 left-4 text-6xl opacity-10">"</div>
+                <div class="absolute bottom-4 right-4 text-6xl opacity-10 rotate-180">"</div>
+
+                <!-- Quote Content -->
+                <div id="quoteContent" class="relative z-10">
+                    <p id="quoteText" class="text-xl md:text-2xl lg:text-3xl font-medium text-gray-800 dark:text-gray-100 leading-relaxed text-center mb-6 quote-text">
+                        나는 오늘도 성공적으로 알람을 끄고 다시 잠들었다.
+                    </p>
+                    <p id="quoteAuthor" class="text-right text-gray-500 dark:text-gray-400 font-light">
+                        — <span id="authorName">현대인의 아침</span>
+                    </p>
+                </div>
+
+                <!-- Category Badge -->
+                <div class="absolute top-4 right-4">
+                    <span id="categoryBadge" class="px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                        🌟 인생
+                    </span>
+                </div>
+
+                <!-- Likes Counter -->
+                <div class="absolute bottom-4 left-4 flex items-center gap-2">
+                    <button id="likeBtn" class="flex items-center gap-1 px-3 py-1 rounded-full bg-red-50 dark:bg-red-900/30 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors">
+                        <span id="heartIcon">🤍</span>
+                        <span id="likeCount" class="text-sm font-medium">0</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mt-8 animate-slide-up" style="animation-delay: 0.3s;">
+            <!-- New Quote Button -->
+            <button id="newQuoteBtn" class="group relative px-8 py-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-bold text-gray-800 dark:text-white">
+                <span class="flex items-center gap-2">
+                    <span class="text-xl group-hover:animate-bounce-slow">🎲</span>
+                    새로운 명언
+                </span>
+            </button>
+
+            <!-- Copy Button -->
+            <button id="copyBtn" class="relative px-6 py-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-bold text-gray-800 dark:text-white">
+                <span class="flex items-center gap-2">
+                    <span class="text-xl">📋</span>
+                    복사
+                </span>
+                <span id="copyTooltip" class="copy-tooltip absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap">
+                    복사됨! ✓
+                </span>
+            </button>
+
+            <!-- Share Button -->
+            <div class="relative">
+                <button id="shareBtn" class="px-6 py-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-bold text-gray-800 dark:text-white">
+                    <span class="flex items-center gap-2">
+                        <span class="text-xl">📤</span>
+                        공유
+                    </span>
+                </button>
+                <!-- Share Menu -->
+                <div id="shareMenu" class="share-menu absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl flex gap-2">
+                    <button class="share-option p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors" data-platform="twitter">
+                        <span class="text-2xl">𝕏</span>
+                    </button>
+                    <button class="share-option p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors" data-platform="facebook">
+                        <span class="text-2xl">📘</span>
+                    </button>
+                    <button class="share-option p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors" data-platform="kakao">
+                        <span class="text-2xl">💬</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <button id="saveBtn" class="px-6 py-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-bold text-gray-800 dark:text-white">
+                <span class="flex items-center gap-2">
+                    <span id="saveIcon" class="text-xl">📌</span>
+                    저장
+                </span>
+            </button>
+        </div>
+
+        <!-- Saved Quotes Section -->
+        <div id="savedSection" class="w-full max-w-2xl mt-12 hidden animate-fade-in">
+            <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                📌 저장한 명언
+                <span id="savedCount" class="text-sm font-normal bg-white/20 px-2 py-1 rounded-full">0개</span>
+            </h2>
+            <div id="savedQuotes" class="space-y-4"></div>
+        </div>
+
+        <!-- Stats -->
+        <div class="mt-12 flex gap-8 text-white/80 text-center animate-slide-up" style="animation-delay: 0.4s;">
+            <div>
+                <div class="text-3xl font-bold" id="totalQuotes">50</div>
+                <div class="text-sm">명언 수</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold" id="viewCount">0</div>
+                <div class="text-sm">오늘 조회</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold" id="savedTotal">0</div>
+                <div class="text-sm">저장됨</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative z-10 text-center py-6 text-white/60 text-sm">
+        <p>매일 새로운 웃음과 지혜를 전해드립니다 ✨</p>
+        <p class="mt-1">© 2024 오늘의 웃픈 명언. Made with 💜</p>
+    </footer>
+
+    <script>
+        // Quote Data
+        const quotes = [
+            // 인생 카테고리
+            { text: "나는 오늘도 성공적으로 알람을 끄고 다시 잠들었다.", author: "현대인의 아침", category: "life", emoji: "😴" },
+            { text: "인생은 짧다. 그러니 디저트부터 먹어라.", author: "맛집 탐험가", category: "life", emoji: "🍰" },
+            { text: "노력은 배신하지 않는다. 다만, 결과가 늦게 올 뿐... 아주 많이.", author: "기다림의 달인", category: "life", emoji: "⏰" },
+            { text: "오늘 할 일을 내일로 미루면, 내일의 내가 두 배로 힘들다. 하지만 오늘의 나는 행복하다.", author: "선택적 낙관주의자", category: "life", emoji: "😌" },
+            { text: "남들이 쉴 때 나도 쉬어라. 남들이 일할 때도... 그냥 쉬어라.", author: "프로 휴식러", category: "life", emoji: "🛋️" },
+            { text: "성공의 비결은 시작하는 것이다. 근데 시작이 너무 어렵다.", author: "이론과 실천 사이", category: "life", emoji: "🚀" },
+            { text: "실패는 성공의 어머니라지만, 성공은 왜 안 오시나요?", author: "기다리는 자녀", category: "life", emoji: "👀" },
+            { text: "포기하면 편해? 맞아, 진짜 편해.", author: "솔직한 인생 선배", category: "life", emoji: "✌️" },
+            { text: "꿈은 이루어진다. 낮잠으로.", author: "수면 전문가", category: "life", emoji: "💤" },
+            { text: "내일의 나에게 미루자. 그 친구가 더 유능할 거야.", author: "시간 여행자", category: "life", emoji: "🔮" },
+
+            // 직장 카테고리
+            { text: "회사는 가족 같다고? 그래서 명절에도 출근하나요?", author: "현실주의 직장인", category: "work", emoji: "🏢" },
+            { text: "월급은 통장을 스쳐간다. 마치 바람처럼.", author: "텅장의 시인", category: "work", emoji: "💸" },
+            { text: "워라밸? 워크만 있고 라이프는 어디 갔죠?", author: "야근 전문가", category: "work", emoji: "⚖️" },
+            { text: "내일 출근이라는 사실만으로 일요일이 우울해진다.", author: "월요병 환자", category: "work", emoji: "😢" },
+            { text: "열정을 가지고 일하라! (단, 월급은 열정페이)", author: "스타트업 격언", category: "work", emoji: "🔥" },
+            { text: "칼퇴는 도시전설이 아닙니다. 저는 본 적이 없을 뿐.", author: "사무실의 전설", category: "work", emoji: "🌆" },
+            { text: "회의는 왜 항상 퇴근 직전에 잡히는가?", author: "타이밍의 희생자", category: "work", emoji: "📅" },
+            { text: "점심시간만이 유일한 인생이다.", author: "직장인의 오아시스", category: "work", emoji: "🍱" },
+            { text: "이력서 업데이트가 나의 취미입니다.", author: "이직 준비생", category: "work", emoji: "📝" },
+            { text: "금요일 6시는 일주일 중 가장 아름다운 순간.", author: "주말 대기자", category: "work", emoji: "🎉" },
+
+            // 연애 카테고리
+            { text: "솔로가 외롭다고? 커플은 두 배로 외롭다.", author: "경험자의 조언", category: "love", emoji: "💔" },
+            { text: "짝사랑은 다이어트에 좋다. 밥이 안 넘어가니까.", author: "사랑과 식욕 사이", category: "love", emoji: "🥗" },
+            { text: "그 사람이 내 타입이 아닌 게 아니라, 내가 그 사람 타입이 아닌 거였다.", author: "현실 자각", category: "love", emoji: "💭" },
+            { text: "연애는 타이밍이라더니, 내 타이밍은 항상 버스 막차.", author: "막차 러버", category: "love", emoji: "🚌" },
+            { text: "너 없인 못 살아... 라고 했던 사람 지금 잘 살고 있더라.", author: "관찰자", category: "love", emoji: "👀" },
+            { text: "설렘은 3개월, 현실은 평생.", author: "연애 리얼리스트", category: "love", emoji: "📊" },
+            { text: "이상형은 있는데, 내가 그 이상형의 이상형이 아니다.", author: "자아성찰러", category: "love", emoji: "🪞" },
+            { text: "사랑에 빠지는 건 쉽다. 빠져나오기가 어렵지.", author: "연애 수영선수", category: "love", emoji: "🏊" },
+
+            // 돈 카테고리
+            { text: "돈이 전부는 아니다. 하지만 90%쯤 된다.", author: "현실주의 경제학자", category: "money", emoji: "💵" },
+            { text: "부자 되는 법? 이미 부자인 집에 태어나면 된다.", author: "금수저 연구가", category: "money", emoji: "🥄" },
+            { text: "월급 빼고 다 오른다.", author: "인플레이션 피해자", category: "money", emoji: "📈" },
+            { text: "저축의 비결: 쓸 돈이 없으면 된다.", author: "강제 저축러", category: "money", emoji: "🐷" },
+            { text: "로또 1등에 당첨될 확률은 낮지만, 0은 아니잖아?", author: "희망 구매자", category: "money", emoji: "🎰" },
+            { text: "주식은 쌀 때 사서 비쌀 때 팔면 된다. 문제는 그걸 모른다는 거지.", author: "개미투자자", category: "money", emoji: "📉" },
+            { text: "절약하면 부자 될 줄 알았는데, 그냥 가난하게 살게 됐다.", author: "검소한 자의 고백", category: "money", emoji: "💀" },
+            { text: "카드값은 미래의 내가 내겠지.", author: "신용카드 철학자", category: "money", emoji: "💳" },
+            { text: "있을 때 잘해? 없을 때도 잘해줄 사람이 진짜다.", author: "진정한 친구 감별사", category: "money", emoji: "🤝" },
+            { text: "돈으로 행복을 살 수 없다고? 그건 돈이 없어본 적 없는 사람 말이다.", author: "경험자", category: "money", emoji: "🤑" },
+
+            // 음식 카테고리
+            { text: "다이어트는 내일부터. 오늘은 마지막 만찬.", author: "만년 다이어터", category: "food", emoji: "🍔" },
+            { text: "배부르면 후회하고, 배고프면 또 먹고.", author: "식욕의 노예", category: "food", emoji: "🍕" },
+            { text: "야식은 금지? 자정 넘으면 아침이니까 아침식사다.", author: "논리적 야식러", category: "food", emoji: "🌙" },
+            { text: "먹을 때만큼은 모든 걱정을 잊는다.", author: "먹방 철학자", category: "food", emoji: "😋" },
+            { text: "운동 1시간보다 안 먹는 게 빠르다. 근데 못 참겠다.", author: "현실 다이어터", category: "food", emoji: "🏃" },
+            { text: "치킨은 살 안 쪄요. 행복이 쪄요.", author: "치킨 마니아", category: "food", emoji: "🍗" },
+            { text: "라면 먹으면 살찐다길래 국물은 안 마셨다.", author: "나름의 노력", category: "food", emoji: "🍜" },
+            { text: "배고프면 화나고, 먹으면 졸리다. 인간의 딜레마.", author: "식후 철학자", category: "food", emoji: "😤" },
+            { text: "맛있는 건 0칼로리라고 생각하면 마음이 편하다.", author: "정신승리 달인", category: "food", emoji: "🧠" },
+            { text: "오늘 뭐 먹지?는 인류 최대의 난제.", author: "식사 고민러", category: "food", emoji: "🤔" },
+        ];
+
+        // State
+        let currentQuote = null;
+        let currentCategory = 'all';
+        let savedQuotes = JSON.parse(localStorage.getItem('savedQuotes')) || [];
+        let likedQuotes = JSON.parse(localStorage.getItem('likedQuotes')) || {};
+        let viewCount = parseInt(localStorage.getItem('viewCount')) || 0;
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+        // DOM Elements
+        const quoteText = document.getElementById('quoteText');
+        const authorName = document.getElementById('authorName');
+        const categoryBadge = document.getElementById('categoryBadge');
+        const likeBtn = document.getElementById('likeBtn');
+        const heartIcon = document.getElementById('heartIcon');
+        const likeCount = document.getElementById('likeCount');
+        const newQuoteBtn = document.getElementById('newQuoteBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const copyTooltip = document.getElementById('copyTooltip');
+        const shareBtn = document.getElementById('shareBtn');
+        const shareMenu = document.getElementById('shareMenu');
+        const saveBtn = document.getElementById('saveBtn');
+        const saveIcon = document.getElementById('saveIcon');
+        const savedSection = document.getElementById('savedSection');
+        const savedQuotesContainer = document.getElementById('savedQuotes');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkIcon = document.getElementById('darkIcon');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+
+        // Initialize
+        function init() {
+            updateViewCount();
+            applyDarkMode();
+            createFloatingEmojis();
+            showRandomQuote();
+            renderSavedQuotes();
+            updateStats();
+            setupEventListeners();
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            newQuoteBtn.addEventListener('click', showRandomQuote);
+            copyBtn.addEventListener('click', copyQuote);
+            shareBtn.addEventListener('click', toggleShareMenu);
+            saveBtn.addEventListener('click', toggleSaveQuote);
+            likeBtn.addEventListener('click', toggleLike);
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.dataset.category;
+                    showRandomQuote();
+                });
+            });
+
+            document.querySelectorAll('.share-option').forEach(btn => {
+                btn.addEventListener('click', () => shareQuote(btn.dataset.platform));
+            });
+
+            // Close share menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!shareBtn.contains(e.target) && !shareMenu.contains(e.target)) {
+                    shareMenu.classList.remove('show');
+                }
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && !e.target.matches('input, textarea')) {
+                    e.preventDefault();
+                    showRandomQuote();
+                }
+            });
+        }
+
+        // Get filtered quotes
+        function getFilteredQuotes() {
+            if (currentCategory === 'all') return quotes;
+            return quotes.filter(q => q.category === currentCategory);
+        }
+
+        // Show random quote
+        function showRandomQuote() {
+            const filteredQuotes = getFilteredQuotes();
+            const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+            currentQuote = filteredQuotes[randomIndex];
+
+            // Animate out
+            quoteText.style.opacity = '0';
+            quoteText.style.transform = 'translateY(-20px)';
+
+            setTimeout(() => {
+                quoteText.textContent = currentQuote.text;
+                authorName.textContent = currentQuote.author;
+
+                const categoryEmoji = getCategoryEmoji(currentQuote.category);
+                const categoryName = getCategoryName(currentQuote.category);
+                categoryBadge.textContent = `${categoryEmoji} ${categoryName}`;
+
+                // Update like state
+                const quoteId = getQuoteId(currentQuote);
+                const isLiked = likedQuotes[quoteId];
+                heartIcon.textContent = isLiked ? '❤️' : '🤍';
+                likeCount.textContent = likedQuotes[quoteId] ? '1' : '0';
+
+                // Update save state
+                const isSaved = savedQuotes.some(q => getQuoteId(q) === quoteId);
+                saveIcon.textContent = isSaved ? '📍' : '📌';
+
+                // Animate in
+                quoteText.style.opacity = '1';
+                quoteText.style.transform = 'translateY(0)';
+
+                // Update view count
+                updateViewCount();
+            }, 300);
+        }
+
+        // Get quote ID
+        function getQuoteId(quote) {
+            return `${quote.text.substring(0, 20)}-${quote.author}`;
+        }
+
+        // Get category emoji
+        function getCategoryEmoji(category) {
+            const emojis = { life: '🌟', work: '💼', love: '💕', money: '💰', food: '🍕' };
+            return emojis[category] || '🎲';
+        }
+
+        // Get category name
+        function getCategoryName(category) {
+            const names = { life: '인생', work: '직장', love: '연애', money: '돈', food: '음식' };
+            return names[category] || '전체';
+        }
+
+        // Copy quote
+        function copyQuote() {
+            const text = `"${currentQuote.text}" - ${currentQuote.author}`;
+            navigator.clipboard.writeText(text).then(() => {
+                copyTooltip.classList.add('show');
+                setTimeout(() => copyTooltip.classList.remove('show'), 2000);
+            });
+        }
+
+        // Toggle share menu
+        function toggleShareMenu() {
+            shareMenu.classList.toggle('show');
+        }
+
+        // Share quote
+        function shareQuote(platform) {
+            const text = `"${currentQuote.text}" - ${currentQuote.author}\n\n오늘의 웃픈 명언에서 더 많은 명언을 만나보세요!`;
+            const url = window.location.href;
+
+            let shareUrl;
+            switch (platform) {
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+                    break;
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+                    break;
+                case 'kakao':
+                    // For Kakao, we'll just copy to clipboard with a message
+                    navigator.clipboard.writeText(text + '\n' + url);
+                    alert('클립보드에 복사되었습니다. 카카오톡에 붙여넣기 해주세요!');
+                    return;
+            }
+
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+            shareMenu.classList.remove('show');
+        }
+
+        // Toggle save quote
+        function toggleSaveQuote() {
+            const quoteId = getQuoteId(currentQuote);
+            const existingIndex = savedQuotes.findIndex(q => getQuoteId(q) === quoteId);
+
+            if (existingIndex > -1) {
+                savedQuotes.splice(existingIndex, 1);
+                saveIcon.textContent = '📌';
+            } else {
+                savedQuotes.push({...currentQuote, savedAt: new Date().toISOString()});
+                saveIcon.textContent = '📍';
+                saveBtn.classList.add('animate-pop');
+                setTimeout(() => saveBtn.classList.remove('animate-pop'), 300);
+            }
+
+            localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
+            renderSavedQuotes();
+            updateStats();
+        }
+
+        // Toggle like
+        function toggleLike() {
+            const quoteId = getQuoteId(currentQuote);
+
+            if (likedQuotes[quoteId]) {
+                delete likedQuotes[quoteId];
+                heartIcon.textContent = '🤍';
+                likeCount.textContent = '0';
+            } else {
+                likedQuotes[quoteId] = true;
+                heartIcon.textContent = '❤️';
+                likeCount.textContent = '1';
+                heartIcon.classList.add('heart-animation');
+                setTimeout(() => heartIcon.classList.remove('heart-animation'), 300);
+            }
+
+            localStorage.setItem('likedQuotes', JSON.stringify(likedQuotes));
+        }
+
+        // Render saved quotes
+        function renderSavedQuotes() {
+            if (savedQuotes.length === 0) {
+                savedSection.classList.add('hidden');
+                return;
+            }
+
+            savedSection.classList.remove('hidden');
+            document.getElementById('savedCount').textContent = `${savedQuotes.length}개`;
+
+            savedQuotesContainer.innerHTML = savedQuotes.map((quote, index) => `
+                <div class="glass-card rounded-xl p-4 relative animate-fade-in" style="animation-delay: ${index * 0.1}s;">
+                    <p class="text-gray-800 dark:text-gray-100 mb-2">"${quote.text}"</p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">— ${quote.author}</p>
+                    <button class="absolute top-2 right-2 text-red-500 hover:text-red-700 transition-colors" onclick="removeSavedQuote('${getQuoteId(quote)}')">
+                        ✕
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Remove saved quote
+        window.removeSavedQuote = function(quoteId) {
+            savedQuotes = savedQuotes.filter(q => getQuoteId(q) !== quoteId);
+            localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
+            renderSavedQuotes();
+            updateStats();
+
+            // Update save button if current quote was removed
+            if (currentQuote && getQuoteId(currentQuote) === quoteId) {
+                saveIcon.textContent = '📌';
+            }
+        };
+
+        // Update view count
+        function updateViewCount() {
+            viewCount++;
+            localStorage.setItem('viewCount', viewCount);
+            document.getElementById('viewCount').textContent = viewCount;
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('totalQuotes').textContent = quotes.length;
+            document.getElementById('savedTotal').textContent = savedQuotes.length;
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('darkMode', isDarkMode);
+            applyDarkMode();
+        }
+
+        // Apply dark mode
+        function applyDarkMode() {
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+                darkIcon.textContent = '☀️';
+            } else {
+                document.documentElement.classList.remove('dark');
+                darkIcon.textContent = '🌙';
+            }
+        }
+
+        // Create floating emojis
+        function createFloatingEmojis() {
+            const container = document.getElementById('emoji-container');
+            const emojis = ['😂', '🤣', '😎', '🙃', '😅', '🤪', '💭', '✨', '💫', '🌟'];
+
+            for (let i = 0; i < 15; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'emoji-float';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = `${Math.random() * 100}%`;
+                emoji.style.top = `${Math.random() * 100}%`;
+                emoji.style.animationDelay = `${Math.random() * 6}s`;
+                emoji.style.fontSize = `${1.5 + Math.random() * 2}rem`;
+                emoji.style.animation = `float ${5 + Math.random() * 5}s ease-in-out infinite`;
+                container.appendChild(emoji);
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
